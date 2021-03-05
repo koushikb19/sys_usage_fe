@@ -1,30 +1,43 @@
 import React, { Component } from 'react';
-import LineChart from 'react-linechart';
-import '../../node_modules/react-linechart/dist/styles.css';
-
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:5000";
+const socket = socketIOClient(ENDPOINT);
 
 export default class LineGraph extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { data: [] }
+    }
+
+
+    componentDidMount = () => {
+        console.log(this.state);
+        const comp = this;
+        socket.on('connect', function () {
+            console.log("Connected");
+        });
+        socket.on('send_data', function (response) {
+            console.log("In usage_details");
+            comp.setState({ data: [...comp.state.data, response] });
+            console.log(comp.state.data);
+            // setTimeout(socket.emit("get_data"), 1000);
+        });
+
+        setInterval(() => {
+            socket.emit("get_data");
+        }, 1000);
+    }
+
+    getData = () => {
+        socket.emit("get_data");
+    }
+
     render() {
-        const data = [
-            {
-                color: "steelblue",
-                points: [{ x: 10, y: 20 }, { x: 30, y: 50 }, { x: 70, y: -30 }],
-            }
-        ];
         return (
             <div>
-                <div className="App">
-                    <h1>My first LineChart</h1>
-                    <LineChart
-                        hidePoints
-                        width={1000}
-                        height={400}
-                        data={data}
-                        xMax="100"
-                        yMax="100"
-                    />
-                </div>
+                <h1>Hello! How are you doing?</h1>
+                <button onClick={this.getData}>Get DATA</button>
             </div>
         )
     }
