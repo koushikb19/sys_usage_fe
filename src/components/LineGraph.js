@@ -13,14 +13,20 @@ export default class LineGraph extends Component {
 
     componentDidMount = () => {
         console.log(this.state);
-        const comp = this;
+        const ref = this;
         socket.on('connect', function () {
             console.log("Connected");
         });
         socket.on('send_data', function (response) {
             console.log("In usage_details");
-            comp.setState({ data: [...comp.state.data, response] });
-            console.log(comp.state.data);
+            if (ref.state.data.length >= 10) {
+                const arr = [...ref.state.data];
+                arr.splice(0, 1);
+                ref.setState({ data: arr })
+
+            }
+            ref.setState({ data: [...ref.state.data, response] });
+            console.log(ref.state.data);
             // setTimeout(socket.emit("get_data"), 1000);
         });
 
