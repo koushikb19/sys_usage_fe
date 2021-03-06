@@ -1,8 +1,9 @@
-import LineGraph from './components/LineGraph';
+import Home from './components/Home';
+
 
 function App() {
   return (
-    <LineGraph />
+    <Home />
   );
 }
 
