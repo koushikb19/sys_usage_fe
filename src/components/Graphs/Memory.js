@@ -13,7 +13,7 @@ export default class Memory extends Component {
         }
         this.interval = null;
     }
-
+    //Get's data from the flask API endpoint every second
     componentDidMount = async () => {
         const ref = this;
         this.interval = setInterval(async () => {
@@ -26,6 +26,7 @@ export default class Memory extends Component {
 
     }
 
+    //Clears the interval once the componet is unmounted
     componentWillUnmount = () => {
         clearInterval(this.interval);
     }

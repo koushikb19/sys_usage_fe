@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Card from '@material-ui/core/Card';
@@ -38,11 +37,13 @@ export default class Home extends Component {
     render() {
         return (
             <div>
+                {/*Nav Bar */}
                 <AppBar position="static" color="primary">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">System Usage</Typography>
                     </Toolbar>
                 </AppBar>
+                {/* Tab View */}
                 <AppBar position="static">
                     <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
                         <Tab label="CPU" />

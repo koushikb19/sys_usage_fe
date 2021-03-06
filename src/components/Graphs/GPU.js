@@ -12,7 +12,7 @@ export default class GPU extends Component {
         }
         this.interval = null;
     }
-
+    //Get's data from the flask API endpoint every second
     componentDidMount = async () => {
         const ref = this;
         this.interval = setInterval(async () => {
@@ -25,6 +25,11 @@ export default class GPU extends Component {
             }
         }, 1000);
 
+    }
+
+    //Clears the interval once the componet is unmounted
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
     }
 
     render() {
